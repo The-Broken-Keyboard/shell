@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "./include/headers.h"
 int finalresultpos;
 char* dotRemoval(char*string, char* actualpath)
 {
@@ -126,7 +126,7 @@ void letsSearch(char **arr, char **finalresult, char **searchpath, int searchpat
     }
     else
     {
-        printf("Directory didn't open\n");
+        fprintf(stderr,RED"Directory didn't open\n"RESET);
         return;
     }
     sort((const char **)array, i);
@@ -208,7 +208,7 @@ void seek(char *input)
         }
         else if (strcmp(token, "-dfe") == 0 || strcmp(token, "-def") == 0 || strcmp(token, "-efd") == 0 || strcmp(token, "-edf") == 0)
         {
-            printf("Invalid flags!\n");
+            fprintf(stderr,RED"Invalid flags!\n"RESET);
             return;
         }
         else
@@ -269,7 +269,7 @@ void seek(char *input)
     // printf("%d\n", finalresultpos);
     if (finalresultpos == 0)
     {
-        printf("No match found\n");
+        printf(YELLOW"No match found\n"RESET);
         return;
     }
     for (int i = 0; i < finalresultpos; i++){
@@ -290,7 +290,7 @@ void seek(char *input)
             FILE *fptr = fopen(result, "r");
             if (fptr == NULL)
             {
-                printf("Missing permission for task!\n");
+                printf(YELLOW"Missing permission for task!\n"RESET);
                 return;
             }
             char buffer[50000];

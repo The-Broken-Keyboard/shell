@@ -4,4 +4,5 @@
 char *promptmodifier(char *str1);
 void prompt();
 void x();
+void printfinished();
 #endif

@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "./include/headers.h"
 
 time_t timetaken;
 char *commandsname;
@@ -40,39 +40,6 @@ int validtoken(char *token)
         return 0;
     return 1;
 }
-// void pasteventsExecuteExtraction(char *input)
-// {
-//     struct commandnode *result = parse(input);
-//     int i = 0;
-//     pasteventsFlag = 0;
-//     char *pasteventfinalresult = (char *)malloc(sizeof(char) * 4096);
-//     pasteventfinalresult[0] = '\0';
-//     struct commandnode *next = result->next;
-//     time_t time1 = time(NULL);
-//     int count = 0;
-//     while (next != result)
-//     {
-//         char *token = commandName(next->command);
-//         if (validtoken(token) == 0)
-//         {
-//             next = next->next;
-//             continue;
-//         }
-//         time_t time1 = time(NULL);
-//         if (strcmp(token, "warp") == 0)
-//         {
-//             warp(next->command);
-//         }
-//         else
-//         {
-//             if (next->bg)
-//                 execVP(next->command, 1);
-//             else
-//                 execVP(next->command, 0);
-//         }
-//         next = next->next;
-//     }
-// }
 void commandExtraction(struct commandnode *result)
 {
     int i = 0;
@@ -236,6 +203,11 @@ void commandExtraction(struct commandnode *result)
             fclose(fptr);
         }
         FILE *fptr2 = fopen(filepath, "a");
+        if(fptr2==NULL)
+        {
+            fprintf(stderr,RED"Pastevents file error!\n"RESET);
+            return;
+        }
         fwrite(pasteventfinalresult, sizeof(char), 4096, fptr2);
         fclose(fptr2);
     }

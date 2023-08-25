@@ -1,8 +1,20 @@
-#include "headers.h"
+#include "./include/headers.h"
+int waste(char*string)
+{
+    int size=strlen(string);
+    for(int i=0;i<size;i++)
+    {
+        if(string[i]=='\n'||string[i]==' '||string[i]=='\t'||string[i]=='\v'||string[i]=='\f'||string[i]=='\r'||string[i]==';'||string[i]=='&')
+        continue;
+        else
+        return 0;
+    }
+    return 1;
+}
 char *trim(char *token)
 {
-    int size = strlen(token);
-    char *result = (char *)malloc(sizeof(char) * (size + 1));
+    int size=strlen(token);
+    char *result = (char *)malloc(sizeof(char) *5000);
     result[0] = '\0';
     for (int i = 1; i < size + 1; i++)
         result[i] = '\0';
@@ -21,8 +33,8 @@ char *trim(char *token)
 }
 struct commandnode *parse(char *string)
 {
-    if (strcmp(string, "\n") == 0)
-        return NULL;
+    if(waste(string))
+    return NULL;
     char *temp = (char *)malloc(sizeof(char) * 500);
     strcpy(temp, string);
     char *token;
@@ -33,11 +45,15 @@ struct commandnode *parse(char *string)
     token = __strtok_r(temp, del1, &ptr_in);
     if(token==NULL)
     return NULL;
+    char*tempu=(char*)malloc(sizeof(char)*1000);
+    tempu[0]='\0';
+    strcpy(tempu,token);
+    char* result1=trim(tempu);
     struct commandnode *head = (struct commandnode *)malloc(sizeof(struct commandnode));
     head->next = NULL;
     head->prev = NULL;
     struct commandnode *last;
-    char *result1 = trim(token);
+    // char *result1 = trim(token);
     if (strlen(result1) > 0)
     {
         struct commandnode *new = (struct commandnode *)malloc(sizeof(struct commandnode));

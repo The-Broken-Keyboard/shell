@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "./include/headers.h"
 struct recordOfCommands* recordHead;
 char* shellpath;
 int main()
@@ -19,7 +19,10 @@ int main()
         // parse function returns a linkedlist of separate command lines
         struct commandnode *result = parse(input);
         if(result==NULL)
-        continue;
+        {
+            fprintf(stderr,RED"ERROR: Syntax error! Please enter valid command\n"RESET);
+            continue;
+        }
         commandExtraction(result);
         destroylist(&result);
     }

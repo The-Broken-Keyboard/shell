@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "./include/headers.h"
 
 char *tildaDothandler(char *string)
 {
@@ -158,7 +158,7 @@ void peek(char *com)
             }
             else
             {
-                printf("Directory didn't open\n");
+                fprintf(stderr,RED"Directory didn't open\n"RESET);
             }
             sort((const char **)array, i);
             if (strcmp(arr[1], "nothing") == 0)
@@ -214,14 +214,14 @@ void peek(char *com)
                     g = getgrgid(buff.st_gid);
                     if (g == NULL)
                     {
-                        fprintf(stderr, "gid %d not found\n", buff.st_gid);
+                        fprintf(stderr,RED"gid %d not found\n"RESET, buff.st_gid);
                         continue;
                     }
                     struct passwd *pd;
                     pd = getpwuid(buff.st_uid);
                     if (pd == NULL)
                     {
-                        printf("getpwuid error\n");
+                        fprintf(stderr,RED"getpwuid error\n"RESET);
                         continue;
                     }
 
@@ -310,7 +310,7 @@ void peek(char *com)
         }
         else
         {
-            printf("Directory didn't open\n");
+            fprintf(stderr,RED"Directory didn't open\n"RESET);
         }
         sort((const char **)array, i);
 
@@ -367,14 +367,14 @@ void peek(char *com)
                 g = getgrgid(buff.st_gid);
                 if (g == NULL)
                 {
-                    fprintf(stderr, "gid %d not found\n", buff.st_gid);
+                    fprintf(stderr,RED"gid %d not found\n"RESET, buff.st_gid);
                     continue;
                 }
                 struct passwd *pd;
                 pd = getpwuid(buff.st_uid);
                 if (pd == NULL)
                 {
-                    printf("getpwuid error\n");
+                    fprintf(stderr,RED"getpwuid error\n"RESET);
                     continue;
                 }
 

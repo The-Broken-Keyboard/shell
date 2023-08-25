@@ -3,5 +3,5 @@
 #include "headers.h"
 struct commandnode* parse(char*string);
 char *trim(char *token);
-
+int waste(char*string);
 #endif

@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "./include/headers.h"
 int pasteventsFlag;
 void catenate(char *result, char *token, int spaceflag)
 {
@@ -78,6 +78,7 @@ char *pasteventsExecute(char *input)
 }
 void pasteventsExecuteExtraction(char *input)
 {
+    printf("%s\n",input);
     struct commandnode *result = parse(input);
     int i = 0;
     pasteventsFlag = 0;
@@ -98,6 +99,24 @@ void pasteventsExecuteExtraction(char *input)
         if (strcmp(token, "warp") == 0)
         {
             warp(next->command);
+        }
+        else if (strstr(next->command, "proclore") == next->command)
+        {
+            proclore(next->command);
+            next = next->next;
+            continue;
+        }
+        else if (strstr(next->command, "peek") == next->command)
+        {
+            peek(next->command);
+            next = next->next;
+            continue;
+        }
+        else if (strstr(next->command, "seek") == next->command)
+        {
+            seek(next->command);
+            next = next->next;
+            continue;
         }
         else
         {
@@ -131,7 +150,7 @@ void pastevents()
     int count = 0;
     if (fptr == NULL)
     {
-        printf("NO pastevents exist!\n");
+        printf(YELLOW"NO pastevents exist!\n",RESET);
         return;
     }
     while (fread(buff, sizeof(char), 4096, fptr))
@@ -141,7 +160,7 @@ void pastevents()
     }
     if (count == 0)
     {
-        printf("NO pastevents exist!\n");
+        printf(YELLOW"NO pastevents exist!\n"RESET);
     }
     fclose(fptr);
     return;

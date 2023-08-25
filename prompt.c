@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "./include/headers.h"
 char cwd[128];
 
 void printfinished()
@@ -14,7 +14,7 @@ void printfinished()
         sprintf(path,"/proc/%d/stat",temp->pid);
         FILE *fptr = fopen(path, "r");
         if(fptr==NULL){
-        printf("file didn't open\n");
+        fprintf(stderr,RED"file didn't open\n"RESET);
         error1();
         }
         char string[5000];

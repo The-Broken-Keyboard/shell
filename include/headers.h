@@ -38,6 +38,8 @@ struct recordOfCommands{
 #define BLUE "\x1b[34m"
 #define WHITE "\x1b[37m"
 #define RESET "\x1b[0m"
+#define RED "\033[0;31m"
+#define YELLOW "\033[0;33m"
 extern struct recordOfCommands* recordHead;
 #include "error.h"
 #include "execVP.h"

@@ -1,11 +1,11 @@
-#include "headers.h"
+#include "./include/headers.h"
 
 void executeChildProcess(char **commandArray)
 {
     int check = execvp(commandArray[0], commandArray);
     if (check == -1)
     {
-        printf("%s is invalid command!\n", commandArray[0]);
+        fprintf(stderr,RED"%s is invalid command!\n"RESET, commandArray[0]);
     }
     return;
 }
@@ -39,8 +39,7 @@ void execVP(char* com,int bg)
     }
     else if (child < 0)
     {
-        printf("fork failed!\n");
-        error1();
+        fprintf(stderr,RED"fork failed!\n"RESET);
     }
     else
     {
@@ -51,7 +50,6 @@ void execVP(char* com,int bg)
         }
         else
             waitpid(child, &status, 0);
-        // printf("hello\n");
     }
     destroystringlist(array, 100);
     return;

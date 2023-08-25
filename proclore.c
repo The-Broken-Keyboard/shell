@@ -1,4 +1,4 @@
-#include "proclore.h"
+#include "./include/headers.h"
 
 void proclore(char *input)
 {
@@ -12,7 +12,7 @@ void proclore(char *input)
         FILE *fptr = fopen(path, "r");
         if (fptr == NULL)
         {
-            printf("file didn't open\n");
+            fprintf(stderr,RED"file didn't open\n"RESET);
             return;
         }
         char buff[100];
@@ -72,7 +72,7 @@ void proclore(char *input)
     FILE *fptr = fopen(path, "r");
     if (fptr == NULL)
     {
-        printf("file didn't open\n");
+        fprintf(stderr,RED"file didn't open\n"RESET);
         return;
     }
     char buff[100];

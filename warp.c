@@ -1,4 +1,4 @@
-#include "headers.h"
+#include "./include/headers.h"
 
 char originalshell[500];
 char previouspath[500];
@@ -34,7 +34,7 @@ int gotoshell(char *token)
     int t = chdir(replace(token));
     if (t == -1)
     {
-        printf("Invalid directory or path\n");
+        fprintf(stderr,RED"Invalid directory or path\n"RESET);
         error1();
         return -1;
     }
@@ -53,7 +53,7 @@ int minussign(char *token)
     }
     else
     {
-        printf("Invalid path detected including '-'\n");
+        fprintf(stderr,RED"Invalid path detected including '-'\n"RESET);
         return -1;
     }
 
@@ -101,7 +101,7 @@ int warp(char *string)
         {
             if (prevpathFlag == 0)
             {
-                printf("There is no previous directory to jump\n");
+                printf(YELLOW"There is no previous directory to jump\n"RESET);
                 flag = 1;
                 return -1;
             }
@@ -130,7 +130,7 @@ int warp(char *string)
             int check = chdir(token);
             if (check == -1)
             {
-                printf("Invalid directory or path\n");
+                fprintf(stderr,RED"Invalid directory or path\n"RESET);
                 error1();
                 flag = 1;
                 return -1;
