@@ -14,6 +14,9 @@
 #include <string.h>
 #include <sys/wait.h>
 #include <time.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <grp.h>
 extern int flag;
 extern int pasteventsFlag;
 extern char* commandsname;
@@ -31,6 +34,10 @@ struct recordOfCommands{
     struct recordOfCommands* next;
     struct recordOfCommands* prev;
 };
+#define GREEN "\x1b[32m"
+#define BLUE "\x1b[34m"
+#define WHITE "\x1b[37m"
+#define RESET "\x1b[0m"
 extern struct recordOfCommands* recordHead;
 #include "error.h"
 #include "execVP.h"
@@ -41,4 +48,7 @@ extern struct recordOfCommands* recordHead;
 #include "freelist.h"
 #include "record.h"
 #include "pastevents.h"
+#include "proclore.h"
+#include "peek.h"
+#include "seek.h"
 #endif

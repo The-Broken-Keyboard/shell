@@ -11,6 +11,7 @@ void originalpath()
     strcpy(originalshell, path);
     return;
 }
+//hello
 char *replace(char *token)
 {
     char *result = (char *)malloc(sizeof(char) * 500);

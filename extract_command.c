@@ -140,6 +140,25 @@ void commandExtraction(struct commandnode *result)
             else
                 catenate(pasteventfinalresult, ";", 1);
         }
+
+        if(strstr(result,"proclore")==result)
+        {
+            proclore(result);
+            next=next->next;
+            continue;
+        }
+        if(strstr(result,"peek")==result)
+        {
+            peek(result);
+            next=next->next;
+            continue;
+        }
+        if(strstr(result,"seek")==result)
+        {
+            seek(result);
+            next=next->next;
+            continue;
+        }
         // printf("%s\n",next->command);
         char *token = commandName(result);
         if (validtoken(token) == 0)

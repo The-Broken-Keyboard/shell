@@ -86,11 +86,17 @@ void prompt()
     getcwd(path, 128);
     if (strstr(path, cwd) == path)
     {
-        if (flag == 0)
-            printf("<%s@%s:%s>", user, hostbuffer, promptmodifier(path));
+        if (flag == 0){
+            printf(GREEN"<%s"RESET, user);
+            printf(BLUE"@%s:%s>"RESET,hostbuffer,promptmodifier(path));
+        }
+            
+
         else
         {
-            printf("<%s@%s:%s %s %lds>", user, hostbuffer, promptmodifier(path), commandsname, timetaken);
+            printf(GREEN"<%s"RESET, user);
+            printf(BLUE"@%s:%s "RESET,hostbuffer,promptmodifier(path));
+            printf(WHITE"%s %lds>"RESET,commandsname,timetaken);
             flag = 0;
             timetaken = 0;
             free(commandsname);
@@ -98,11 +104,15 @@ void prompt()
     }
     else
     {
-        if (flag == 0)
-            printf("<%s@%s:%s>", user, hostbuffer, path);
+        if (flag == 0){
+            printf(GREEN"<%s"RESET, user);
+            printf(BLUE"@%s:%s>"RESET,hostbuffer,path);
+        }
         else
         {
-            printf("<%s@%s:%s %s %ld>", user, hostbuffer, path, commandsname, timetaken);
+            printf(GREEN"<%s"RESET, user);
+            printf(BLUE"@%s:%s "RESET,hostbuffer,path);
+            printf(WHITE"%s %lds>"RESET,commandsname,timetaken);
             flag = 0;
             timetaken = 0;
             free(commandsname);
