@@ -15,10 +15,16 @@
 #include <sys/wait.h>
 #include <time.h>
 #include <dirent.h>
+#include<fcntl.h>
+#include<ctype.h>
+#include<termios.h>
 #include <sys/stat.h>
 #include <grp.h>
+#include <signal.h>
+extern char* input;
 extern int flag;
 extern int pasteventsFlag;
+extern int sleepflag;
 extern char* commandsname;
 extern time_t timetaken;
 extern char* shellpath;
@@ -33,6 +39,13 @@ struct recordOfCommands{
     char commandname[200];
     struct recordOfCommands* next;
     struct recordOfCommands* prev;
+};
+struct redirCommands
+{
+    char command[500];
+    char inputfrom[100];
+    char outputfrom[100];
+    int append;
 };
 #define GREEN "\x1b[32m"
 #define BLUE "\x1b[34m"
@@ -53,4 +66,11 @@ extern struct recordOfCommands* recordHead;
 #include "proclore.h"
 #include "peek.h"
 #include "seek.h"
+#include "activities.h"
+#include "pipingRedirection.h"
+#include "rawmode.h"
+#include "ping.h"
+#include "FgBg.h"
+#include "iman.h"
+#include "neonate.h"
 #endif

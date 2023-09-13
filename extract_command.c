@@ -3,6 +3,21 @@
 time_t timetaken;
 char *commandsname;
 int flag;
+int isPipeOrRedirection(char* input)
+{
+    int size=strlen(input);
+    char* temp=(char*)malloc(sizeof(char)*(size+2));
+    temp[0]='\0';
+    catenate(temp,input,0);
+    for(int i=0;i<size;i++)
+    {
+        if(temp[i]=='|'||temp[i]=='<'||temp[i]=='>')
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
 char *commandName(char *command)
 {
     char **array = (char **)malloc(sizeof(char *) * 100);
@@ -40,7 +55,7 @@ int validtoken(char *token)
         return 0;
     return 1;
 }
-void commandExtraction(struct commandnode *result)
+int commandExtraction(struct commandnode *result)
 {
     int i = 0;
     pasteventsFlag = 0;
@@ -51,7 +66,29 @@ void commandExtraction(struct commandnode *result)
     int count = 0;
     while (next != result)
     {
-        char *result = handlePastEvents(next->command);
+        char *result = spaceOrganiser(next->command);
+        if(strcmp("exit",trim(result))==0)
+        {
+            return -1;
+        }
+        if(isPipeOrRedirection(result))
+        {
+            result=Piping(result,0,STDOUT_FILENO,STDIN_FILENO);
+            if(pasteventsFlag==0)
+            {
+                if(count==0)
+                {
+                    catenate(pasteventfinalresult,result,0);
+                    count++;
+                }
+                else
+                catenate(pasteventfinalresult,result,1);
+
+                catenate(pasteventfinalresult,";",1);
+            }
+            next=next->next;
+            continue;
+        }
         if (strcmp(result, "pastevents") == 0 || strcmp(result, "pastevents purge") == 0)
             pasteventsFlag = 1;
         else if (strstr(result, "pastevents execute") == result)
@@ -126,6 +163,42 @@ void commandExtraction(struct commandnode *result)
             next=next->next;
             continue;
         }
+        if(strstr(result,"ping")==result)
+        {
+            png(result);
+            next=next->next;
+            continue;
+        }
+        if(strstr(result,"fg")==result)
+        {
+            fg(result);
+            next=next->next;
+            continue;
+        }
+        if(strstr(result,"bg")==result)
+        {
+            bg(result);
+            next=next->next;
+            continue;
+        }
+        if(strstr(result,"iMan")!=NULL)
+        {
+            iman(result);
+            next=next->next;
+            continue;
+        }
+        if(strstr(result,"neonate")!=NULL)
+        {
+            neonate(result);
+            next=next->next;
+            continue;
+        }
+        if(strcmp(result,"activities")==0)
+        {
+            activities();
+            next=next->next;
+            continue;
+        }
         // printf("%s\n",next->command);
         char *token = commandName(result);
         if (validtoken(token) == 0)
@@ -133,7 +206,6 @@ void commandExtraction(struct commandnode *result)
             next = next->next;
             continue;
         }
-        time_t time1 = time(NULL);
         if (strcmp(token, "warp") == 0)
         {
             warp(result);
@@ -198,7 +270,7 @@ void commandExtraction(struct commandnode *result)
             if (strcmp(buff2, pasteventfinalresult) == 0)
             {
                 fclose(fptr);
-                return;
+                return 0;
             }
             fclose(fptr);
         }
@@ -206,11 +278,11 @@ void commandExtraction(struct commandnode *result)
         if(fptr2==NULL)
         {
             fprintf(stderr,RED"Pastevents file error!\n"RESET);
-            return;
+            return 0;
         }
         fwrite(pasteventfinalresult, sizeof(char), 4096, fptr2);
         fclose(fptr2);
     }
 
-    return;
+    return 0;
 }

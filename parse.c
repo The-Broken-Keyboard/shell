@@ -29,6 +29,11 @@ char *trim(char *token)
         }
     }
     result[pos] = '\0';
+    while(result[pos-1]==' '||result[pos-1]=='\t'||result[pos-1]=='\r'||result[pos-1]=='\v'||result[pos-1]=='\f')
+    {
+        pos--;
+        result[pos]='\0';
+    }
     return result;
 }
 struct commandnode *parse(char *string)

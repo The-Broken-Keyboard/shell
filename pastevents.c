@@ -12,10 +12,10 @@ void catenate(char *result, char *token, int spaceflag)
     }
     result[pos] = '\0';
 }
-char *handlePastEvents(char *input)
+char *spaceOrganiser(char *input)
 {
-    int pF = 0;
-    int pEF = 0;
+    // int pF = 0;
+    // int pEF = 0;
     char **array = (char **)malloc(sizeof(char *) * 1000);
     for (int i = 0; i < 1000; i++)
         array[i] = (char *)malloc(sizeof(char) * 500);
@@ -78,7 +78,7 @@ char *pasteventsExecute(char *input)
 }
 void pasteventsExecuteExtraction(char *input)
 {
-    printf("%s\n",input);
+    // printf("%s\n",input);
     struct commandnode *result = parse(input);
     int i = 0;
     pasteventsFlag = 0;
@@ -95,8 +95,15 @@ void pasteventsExecuteExtraction(char *input)
             next = next->next;
             continue;
         }
-        time_t time1 = time(NULL);
-        if (strcmp(token, "warp") == 0)
+        if(isPipeOrRedirection(next->command))
+        {
+            Piping(next->command,0,STDOUT_FILENO,STDIN_FILENO);
+        }
+        else if(strcmp(next->command,"activities")==0)
+        {
+            activities();
+        }
+        else if (strcmp(token, "warp") == 0)
         {
             warp(next->command);
         }

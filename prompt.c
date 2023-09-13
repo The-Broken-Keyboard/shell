@@ -14,7 +14,7 @@ void printfinished()
         sprintf(path,"/proc/%d/stat",temp->pid);
         FILE *fptr = fopen(path, "r");
         if(fptr==NULL){
-        fprintf(stderr,RED"file didn't open\n"RESET);
+        fprintf(stderr,RED"file didn't open \n"RESET);
         error1();
         }
         char string[5000];
@@ -24,6 +24,8 @@ void printfinished()
         sscanf(string,"%s %s %c",garb,garb,&status);
         if(status=='Z')
         {
+            int tm;
+            waitpid(temp->pid,&tm,0);
             printf("%s [%d] exited normally\n",temp->commandname,temp->pid);
             removenodeFromRecordlist(temp);
         }
@@ -68,7 +70,7 @@ void prompt()
     // struct utsname buffer;
     // if(uname(&buffer)<0)
     // error1();
-    printfinished();
+    // printfinished();
     char hostbuffer[256];
     int hostname;
     hostname = gethostname(hostbuffer, sizeof(hostbuffer));

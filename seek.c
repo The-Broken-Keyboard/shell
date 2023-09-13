@@ -47,8 +47,8 @@ int isdirectory2(char *path)
 int isdirectory(char *filename, char *path)
 {
     struct stat buff;
-    char filepath[100];
-    for (int i = 0; i < 100; i++)
+    char filepath[10000];
+    for (int i = 0; i < 10000; i++)
         filepath[i] = '\0';
     catenate(filepath, path, 0);
     catenate(filepath, "/", 0);
@@ -90,9 +90,9 @@ void writefinalanswer(char **finalanswer, char **searchpath,int searchpathPos, c
 }
 void letsSearch(char **arr, char **finalresult, char **searchpath, int searchpathPos)
 {
-    char **array = (char **)malloc(sizeof(char *) * 500);
-    for (int i = 0; i < 500; i++)
-        array[i] = (char *)malloc(sizeof(char) * 100);
+    char **array = (char **)malloc(sizeof(char *) * 5000);
+    for (int i = 0; i < 5000; i++)
+        array[i] = (char *)malloc(sizeof(char) * 1000);
     int i = 0, j = 0, k = 0;
     DIR *dir;
     struct dirent *dent;
@@ -110,8 +110,10 @@ void letsSearch(char **arr, char **finalresult, char **searchpath, int searchpat
             catenate(path, "/", 0);
         }
     }
+    // printf("%s\n",path);
     // getcwd(path, 99);
     catenate(buffer, path, 0);
+    // printf("%s\n",buffer);
     dir = opendir(buffer); // this part
     if (dir != NULL)
     {
@@ -135,10 +137,13 @@ void letsSearch(char **arr, char **finalresult, char **searchpath, int searchpat
     // return;
     for (int i = 0; i < k; i++)
     {
+        // printf("%s\n",array[i]);
         if (array[i][0] == '.')
             continue;
         if (isdirectory(array[i], path))
         {
+            // printf("%s\n",array[i]);
+            // printf("here i am\n");
             if (strstr(array[i], arr[4]) != NULL && strcmp(arr[1], "nothing") == 0)
                 writefinalanswer(finalresult,searchpath,searchpathPos,array[i]);
             strcpy(searchpath[searchpathPos], array[i]);
@@ -147,6 +152,7 @@ void letsSearch(char **arr, char **finalresult, char **searchpath, int searchpat
         }
         else
         {
+            // printf("here i am\n");
             if (strstr(array[i], arr[4]) != NULL && strcmp(arr[2], "nothing") == 0)
                 writefinalanswer(finalresult,searchpath,searchpathPos,array[i]);
         }
@@ -217,6 +223,11 @@ void seek(char *input)
         }
         token = __strtok_r(NULL, del, &ptr_out);
     }
+    // for(int i=0;i<z;i++)
+    // {
+    //     printf("%s\n",arr[i]);
+    // }
+    // return;
     if (strcmp(arr[5], "nothing") == 0)
         strcpy(arr[5], ".");
     char path[100];
@@ -266,7 +277,6 @@ void seek(char *input)
     }
     finalresultpos = 0;
     letsSearch(arr, finalresult, searchpath, 1);
-    // printf("%d\n", finalresultpos);
     if (finalresultpos == 0)
     {
         printf(YELLOW"No match found\n"RESET);

@@ -1,5 +1,5 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/76mHqLr5)
 # Description
+
 
 # Assumptions
 1. If a command line (which may be consisting of many several commands concatenated in sequence via';' or '&') takes more than 2 seconds in foreground , then I am printing the command names of all commands (exactly one time) and total time taken by that particular command line while getting executed along with prompt.
@@ -8,3 +8,10 @@
 4. In proclore , since our this shell will run in foreground , no other process except of this shell process will contain + sign. 
 5. I am not handling the exit command since it was not mentioned in project document and also exit is not executed by execvp.
 6. I am storing all commands which got entered in shell as pastevents , even if they were wrong commands.
+
+FOR B AND C
+
+7. I am not implementing bg with piping
+8. In redirection multiple input redirection or multiple output redirection is not allowed in a single command
+9. my shell won't do anything if there is no any running foreground process and if user gives input ctrl+c
+10.I am removing the bg process from list as soon as it gets executed completely in foreground after fg command

@@ -41,7 +41,6 @@ int block(char *filename, char *path)
 }
 void peek(char *com)
 {
-
     int z = 0;
     char **arr = (char **)malloc(sizeof(char *) * 100);
     for (int i = 0; i < 100; i++)

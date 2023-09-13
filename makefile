@@ -1,2 +1,2 @@
 main:
-	gcc  main.c prompt.c error.c warp.c parse.c execVP.c extract_command.c freelist.c record.c pastevents.c proclore.c peek.c seek.c
+	gcc  main.c prompt.c error.c warp.c parse.c execVP.c extract_command.c freelist.c record.c pastevents.c proclore.c peek.c seek.c activities.c pipingRedirection.c rawmode.c ping.c FgBg.c iman.c neonate.c
